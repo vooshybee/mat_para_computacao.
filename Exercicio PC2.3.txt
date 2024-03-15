@@ -1,0 +1,56 @@
+O que acontece ao se executar uma chamada a uma função recursiva que chama a si
+mesma um elevado número de vezes? Dê um exemplo utilizando o código-fonte da progressão
+aritmética fornecido pelo professor. Faça um comparativo escrevendo um algoritmo e código
+que sejam equivalentes ao recursivo em termos de entradas e saídas mas que utilizem iteração
+ao invés de recursão. Qual sua conclusão? 
+
+
+Resposta: Ao chamar a função recursiva muitas vezes, ocorre um evento chamado "Stack Ovewflow", onde a pilha de execução estoura por ter sido chamada inúmeras vezes, causando consumo muito elevado da CPU e memoria RAM.
+Como pode ocorre neste codigo:
+
+class ArithmeticProgression{
+    initial_term: number;
+    diff: number;
+    constructor(i: number, diff: number){
+        this.initial_term = i;
+        this.diff = diff;
+    }
+    get_nth_term(n:number): number{
+        if (n == 1){
+            return this.initial_term;
+        } else {
+            return this.get_nth_term(n-1) + this.diff;
+        }
+    }
+}
+
+let my_ap = new ArithmeticProgression(6, 10);
+console.log("First term: ", my_ap.get_nth_term(1));
+console.log("Fourth term: ", my_ap.get_nth_term(5161));
+
+
+Se usarmos a iteração, esse problema não ocorre, pois utiliza um loop "for" para iterar sobre os termos da progressão aritimética, como neste codigo aqui:
+
+class ArithmeticProgression{
+    initial_term: number;
+    diff: number;
+    constructor(i: number, diff: number){
+        this.initial_term = i;
+        this.diff = diff;
+    }
+    get_nth_term(n:number): number{
+        let term = this.initial_term;
+        for (let i = 1; i < n; i++) {
+            term += this.diff;
+        }
+        return term;
+    }
+}
+
+let my_ap = new ArithmeticProgression(6, 10);
+console.log("First term: ", my_ap.get_nth_term(1));
+console.log("Fourth term: ", my_ap.get_nth_term(5161));
+
+
+Conclusão: Em certos casos a função recursiva pode ser uma boa ideia, por ser mais elegante, porém, a iteração "for", mesmo sendo considerada menos elegante, é mais eficiente em termos de uso de memória. Em números muito elevados
+a melhor função a se considerar é a iteração "for".
